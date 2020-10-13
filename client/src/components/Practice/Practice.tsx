@@ -8,8 +8,9 @@ const refreshImageStyle: ImageStyle = {
   width: "1rem",
 };
 
-function fetchWords(count: number): any {
-  return (randomWords(count) as string[]).map((val: string, index: number) => {
+const wordsArray: string[] = randomWords(200) as string[];
+function fetchWords(): any {
+  return wordsArray.map((val: string, index: number) => {
     return (
       <span key={index} className="d-inline-block">
         {val.split("").map((letter, ind) => (
@@ -44,15 +45,28 @@ const Practice: FC = () => {
       if (words.current!.children[count].classList.contains("whitespace")) {
         setCount(count + 1);
       } else {
-        if (text[index] === words.current!.children[count].children[index].textContent) {
-          words.current!.children[count].children[index].classList.add("bg-success");
+        if (
+          text[index] ===
+          words.current!.children[count].children[index].textContent
+        ) {
+          words.current!.children[count].children[index].classList.add(
+            "bg-success"
+          );
         } else {
-          words.current!.children[count].children[index].classList.add("bg-danger");
+          words.current!.children[count].children[index].classList.add(
+            "bg-danger"
+          );
         }
 
-        if (words.current!.children[count].textContent!.length === text.length) {
-          setCount(count + 1);
-          textInput.current!.value = "";
+        if (
+          words.current!.children[count].textContent!.length === text.length
+        ) {
+          document.addEventListener("keyup", (e) => {
+            if (e.code === "Space") {
+              setCount(count + 1);
+              textInput.current!.value = "";
+            }
+          });
         }
       }
     });
@@ -70,7 +84,7 @@ const Practice: FC = () => {
             fontSize: "1.2rem",
           }}
         >
-          {fetchWords(200)}
+          {fetchWords()}
         </p>
         <div className="row">
           <div className="col-8">
