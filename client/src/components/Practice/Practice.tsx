@@ -30,9 +30,6 @@ function fetchWords(): any {
   });
 }
 
-// function onfocusevent(e: any) {
-
-// }
 
 const Practice: FC = () => {
   const textInput = useRef<HTMLInputElement>(null);
