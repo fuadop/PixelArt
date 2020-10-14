@@ -1,6 +1,6 @@
 # Typing Game
 
-visit site at [ttypinggame.netlify.app](https://ttypinggame.netlify.app) 💥💥💌
+visit site at [ttyping.netlify.app](https://ttyping.netlify.app) 💥💥💌
 
 ### Currently only practice mode is available.
 
