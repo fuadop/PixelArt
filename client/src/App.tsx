@@ -1,10 +1,10 @@
 import React, { FC } from "react";
-import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
+import {HashRouter, Switch, Route} from "react-router-dom";
 import Home from "./components/Home/Home";
 import Practice from "./components/Practice/Practice";
 
 const App: FC = () => (
-  <Router>
+  <HashRouter>
       <Switch>
         <Route path={"/practice"} exact>
           <Practice/>
@@ -16,7 +16,7 @@ const App: FC = () => (
           <Home/>
         </Route>
       </Switch>
-  </Router>
+  </HashRouter>
 );
 
 export default App;
