@@ -146,13 +146,17 @@ const Practice: FC = () => {
               </button>
             </div>
             <div className="text-center mx-3">
-              <a className="btn btn-primary align-middle px-2" href="/practice">
+              <button className="btn btn-primary align-middle px-2" onClick= {
+                e => {
+                  window.location.reload();
+                }
+              }>
                 <img
                   src={refreshImage}
                   alt="restart"
                   style={refreshImageStyle}
                 />
-              </a>
+              </button>
             </div>
           </div>
         </div>
