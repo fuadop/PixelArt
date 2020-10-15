@@ -11,3 +11,5 @@ __You don't understand the interface??__
 *    click the space bar to switch to another word,
 *    when you have typed to your satisfaction, click on the view stats button.
 *    A modal would pop up showing you your speed and accuracy.
+
+![banner](/assets/banner.png)
