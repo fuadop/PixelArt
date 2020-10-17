@@ -6,6 +6,12 @@ type Mutation {
     createRoom(data: CreateRoomInput!): Room!
     joinRoom(data: JoinRoomInput!): Room!
     deleteRoom(data: DeleteRoomInput!): Room!
+    startGame(data: StartGameInput!): Room!
+    updateGame(data: UpdateGameInput!): Room!
+}
+
+type Subscription {
+    roomStateChange(data: RoomStateChangeInput!): RoomStateChangePayload!
 }
 
 type Room {
@@ -14,6 +20,7 @@ type Room {
     player2: String
     password: String!
     words: [String!]!
+    isStarted: Boolean!
     player1Speed: Int
     player2Speed: Int
     player1Errors: Int
@@ -36,4 +43,29 @@ input JoinRoomInput {
 input DeleteRoomInput {
     roomid: ID!
 
+}
+
+input StartGameInput {
+    roomid: ID!
+}
+
+input UpdateGameInput {
+    roomid: ID!
+}
+
+input RoomStateChangeInput {
+    roomid: ID!
+}
+
+
+enum RoomStateMutation {
+    CREATED
+    JOINED
+    STARTGAME
+    UPDATEDTEXT
+}
+
+type RoomStateChangePayload {
+    mutation: RoomStateMutation!
+    data: Room!
 }

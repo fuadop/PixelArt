@@ -6,6 +6,7 @@ const RoomSchema = new Schema({
     player2: String,
     password: String,
     words: [String],
+    isStarted: Boolean,
     player1Speed: Number,
     player2Speed: Number,
     player1Errors: Number,

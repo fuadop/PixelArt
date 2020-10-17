@@ -1,18 +1,21 @@
 const port = process.env.PORT || 8080;
-import { GraphQLServer } from "graphql-yoga";
+import { GraphQLServer, PubSub } from "graphql-yoga";
 import { connect } from "mongoose";
 import Room from "./models/Room";
 import Query from "./resolvers/Query";
 import Mutation from "./resolvers/Mutation";
+import Subscription from "./resolvers/Subscription";
 
 const server = new GraphQLServer({
     typeDefs: "./src/schema.graphql", 
     resolvers: {
         Query,
-        Mutation
+        Mutation,
+        Subscription
     },
     context: {
-        Room
+        Room,
+        pb: new PubSub()
     }
 });
 

@@ -1,3 +1,4 @@
+import { PubSub } from "graphql-yoga";
 import { Model, Document } from "mongoose";
 
 //Room schema interface 
@@ -7,6 +8,7 @@ export interface IRoom extends Document{
     player2?: string
     password: string
     words: string[]
+    isStarted: boolean
     player1Speed?: number
     player2Speed?: number
     player1Errors?: number
@@ -18,6 +20,7 @@ export interface IRoom extends Document{
 // context interface
 export interface IContext {
     Room: Model<IRoom>
+    pb: PubSub
 }
 
 // mongoose update interface
@@ -48,4 +51,24 @@ export interface IJoinRoomInput {
 
 export interface IDeleteRoomInput {
     roomid: string
+}
+
+export interface IRoomStateChangeInput {
+    roomid: string
+}
+
+export interface IStartGameInput {
+    roomid: string
+}
+
+export interface IUpdateGameInput {
+    roomid: string
+}
+
+
+export type IRoomStateMutation = "CREATED" | "JOINED" | "STARTGAME" | "UPDATEDTEXT";
+
+export interface IRoomStateChangePayload {
+    mutation: IRoomStateMutation
+    data: IRoom
 }
