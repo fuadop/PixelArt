@@ -1,0 +1,39 @@
+type Query {
+    rooms: [Room!]!
+}
+
+type Mutation {
+    createRoom(data: CreateRoomInput!): Room!
+    joinRoom(data: JoinRoomInput!): Room!
+    deleteRoom(data: DeleteRoomInput!): Room!
+}
+
+type Room {
+    id: ID!
+    player1: String!
+    player2: String
+    password: String!
+    words: [String!]!
+    player1Speed: Int
+    player2Speed: Int
+    player1Errors: Int
+    player2Errors: Int
+    player1WordsTyped: Int
+    player2WordsTyped: Int
+}
+
+input CreateRoomInput {
+    player1: String!
+    password: String!
+}
+
+input JoinRoomInput {
+    roomid: ID!
+    player2: String!
+    password: String!
+}
+
+input DeleteRoomInput {
+    roomid: ID!
+
+}

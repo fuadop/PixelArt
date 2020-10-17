@@ -13,12 +13,15 @@
     "@types/mongodb": "^3.5.27",
     "@types/mongoose": "^5.7.36",
     "@types/node": "^14.11.8",
-    "ts-node": "^9.0.0"
+    "@types/random-words": "^1.1.0",
+    "ts-node": "^9.0.0",
+    "typescript": "^4.0.3"
   },
   "dependencies": {
     "bcrypt": "^5.0.0",
     "graphql-yoga": "^1.18.3",
     "mongodb": "^3.6.2",
-    "mongoose": "^5.10.9"
+    "mongoose": "^5.10.9",
+    "random-words": "^1.1.1"
   }
 }
