@@ -21,8 +21,8 @@ type Room {
     password: String!
     words: [String!]!
     isStarted: Boolean!
-    player1Speed: Int
-    player2Speed: Int
+    player1Speed: String
+    player2Speed: String
     player1Errors: Int
     player2Errors: Int
     player1WordsTyped: Int
@@ -51,6 +51,10 @@ input StartGameInput {
 
 input UpdateGameInput {
     roomid: ID!
+    player: String!
+    speed: String
+    wordsTyped: Int
+    errors: Int
 }
 
 input RoomStateChangeInput {

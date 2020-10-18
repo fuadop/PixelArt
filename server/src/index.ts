@@ -11,7 +11,7 @@ const server = new GraphQLServer({
     resolvers: {
         Query,
         Mutation,
-        Subscription
+        Subscription,
     },
     context: {
         Room,

@@ -14,7 +14,7 @@ import randomWords from "random-words";
 import * as bcrypt from "bcrypt";
 
 const Mutation = {
-    createRoom: (_parent: any, {data}: {data: ICreateRoomInput}, {Room}: IContext, _info: any) => {
+    createRoom: (_parent: any, {data}: {data: ICreateRoomInput}, {Room, pb}: IContext, _info: any) => {
         if(data.password.trim() === "" || data.password === null || data.password === undefined) {
             throw new Error("Password can't be empty");
         }
@@ -25,6 +25,10 @@ const Mutation = {
             isStarted: false
         })
         return newRoom.save().then((res: IRoom) => {
+            pb.publish(`room ${res._id}`, {roomStateChange: {
+                mutation: "CREATED",
+                data: res
+            }})
             return res;
         }).catch((err: Error) => {
             throw new Error(`${err}`);
@@ -51,7 +55,7 @@ const Mutation = {
                 }
                 return Room.findById(data.roomid).then((room: IRoom | null) => {
                     pb.publish(`room ${data.roomid}`, {
-                        update: {
+                        roomStateChange: {
                             mutation:"JOINED",
                             data: room
                         }
@@ -84,11 +88,20 @@ const Mutation = {
             if(!room) {
                 throw new Error("Room doesn't exist");
             }
-            return pb.publish(`room ${data.roomid}`, {
-                update: {
-                    mutation: "STARTGAME",
-                    data: room
+            return Room.updateOne({_id: data.roomid}, {
+                isStarted: true
+            }).then((update: IMongooseUpdate) => {
+                if(update.ok !== 1) {
+                    throw new Error("Room not updated");
                 }
+                return Room.findById(data.roomid).then(val => {
+                    pb.publish(`room ${data.roomid}`, {roomStateChange: {
+                        mutation: "STARTGAME",
+                        data: val
+                    }})
+                    return val
+                })
+
             })
         }).catch(err => {
             throw new Error(err);
@@ -99,12 +112,50 @@ const Mutation = {
             if(!room) {
                 throw new Error("Room doesn't exist");
             }
-            return pb.publish(`room ${data.roomid}`, {
-                update: {
-                    mutation: "UPDATEDTEXT",
-                    data: room
+            if(!room.isStarted) {
+                throw new Error("Game hasn't started yet");
+            }
+            if(data.player === room.player1) {
+                return Room.updateOne({_id: `${data.roomid}`}, {
+                    player1WordsTyped: data.wordsTyped,
+                    player1Errors: data.errors,
+                    player1Speed: data.speed
+                }).then((updated: IMongooseUpdate) => {
+                    if(updated.ok !== 1) {
+                        throw new Error("Not updated");
+                    }
+                    return Room.findById(data.roomid).then(val => {
+                        pb.publish(`room ${data.roomid}`, {
+                            roomStateChange: {
+                                mutation: "UPDATEDTEXT",
+                                data: room
+                            }
+                        })
+                        return val
+                    })
+                })
+            }
+
+            return Room.updateOne({_id: `${data.roomid}`}, {
+                player2WordsTyped: data.wordsTyped,
+                player2Errors: data.errors,
+                player2Speed: data.speed
+            }).then((updated: IMongooseUpdate) => {
+                if(updated.ok !== 1) {
+                    throw new Error("Not updated");
                 }
+                return Room.findById(data.roomid).then(val => {
+                    pb.publish(`room ${data.roomid}`, {
+                        roomStateChange: {
+                            mutation: "UPDATEDTEXT",
+                            data: room
+                        }
+                    })
+                    return val
+                })
             })
+           
+            
         }).catch(err => {
             throw new Error(err);
         });

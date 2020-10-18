@@ -9,8 +9,8 @@ export interface IRoom extends Document{
     password: string
     words: string[]
     isStarted: boolean
-    player1Speed?: number
-    player2Speed?: number
+    player1Speed?: string
+    player2Speed?: string
     player1Errors?: number
     player2Errors?: number
     player1WordsTyped?: number
@@ -63,7 +63,12 @@ export interface IStartGameInput {
 
 export interface IUpdateGameInput {
     roomid: string
+    player: string
+    speed: string
+    wordsTyped: number
+    errors: number
 }
+
 
 
 export type IRoomStateMutation = "CREATED" | "JOINED" | "STARTGAME" | "UPDATEDTEXT";
