@@ -11,7 +11,7 @@ const logoStyle: ImageStyle = {
 
 const Navbar: FC<NavProps> = ({path}) => {
   return (
-    <nav className="navbar navbar-dark bg-dark navbar-expand">
+    <nav className="navbar navbar-dark bg-dark navbar-expand shadow-sm">
       <div className="container">
       <Link to="/" className="brand-logo font-weight-bold text-white card-link">
         Typing..
