@@ -2,6 +2,7 @@ import { Schema, model } from "mongoose";
 import { IRoom } from "../interfaces";
 
 const RoomSchema = new Schema({
+    name: String,
     player1: String,
     player2: String,
     password: String,

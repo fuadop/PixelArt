@@ -20,6 +20,7 @@ const Mutation = {
         }
         const newRoom = new Room({
             player1: data.player1,
+            name: data.name,
             words: randomWords(200) as string[],
             password: bcrypt.hashSync(`${data.password}`, 10),
             isStarted: false

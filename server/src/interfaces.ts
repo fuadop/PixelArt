@@ -4,6 +4,7 @@ import { Model, Document } from "mongoose";
 //Room schema interface 
 export interface IRoom extends Document{
     id: string
+    name: string
     player1: string
     player2?: string
     password: string
@@ -40,6 +41,7 @@ export interface IMongooseUpdate {
 export interface ICreateRoomInput {
     player1: string
     password: string
+    name: string
 }
 
 // join room mutation interfaces

@@ -16,6 +16,7 @@ type Subscription {
 
 type Room {
     id: ID!
+    name: String!
     player1: String!
     player2: String
     password: String!
@@ -30,6 +31,7 @@ type Room {
 }
 
 input CreateRoomInput {
+    name: String!
     player1: String!
     password: String!
 }

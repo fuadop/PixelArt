@@ -44,7 +44,7 @@ const Practice: FC = () => {
   const [timeStamp, setTimeStamp] = useState<number>(0);
 
   useEffect(() => {
-    if (count != 0) {
+    if (count !== 0) {
       let isError: boolean = Array.from(
         words.current!.children[count - 1].children
       ).some(
