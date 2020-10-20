@@ -8,6 +8,16 @@ const Query = {
             }
             return data;
         });
+    },
+    room: (_parent: any, args: {id: string}, {Room}: IContext, _info: any) => {
+        return Room.findById(args.id).then(room => {
+            if(!room) {
+                throw new Error("Room not found");
+            }
+            return room;
+        }).catch(err => {
+            throw new Error(err);
+        })
     }
 }
 

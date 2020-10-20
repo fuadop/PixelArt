@@ -1,5 +1,6 @@
 type Query {
     rooms: [Room!]!
+    room(id: ID!): Room!
 }
 
 type Mutation {
