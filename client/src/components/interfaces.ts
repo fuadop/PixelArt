@@ -12,6 +12,8 @@ export interface ImageStyle {
 
 export interface RoomProps {
     rooms: any
+    createroom: any
+    joinroom: any
 }
 
 export interface IRoom {

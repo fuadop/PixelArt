@@ -12,3 +12,16 @@ export const joinRoomMutation = gql`
         }
     }
 `
+
+export const createRoomMutation = gql `
+    mutation($roomname: String!, $player1: String!, $password: String!) {
+        createRoom(data: {
+            name: $roomname
+            player1: $player1
+            password: $password
+        }){
+            id
+            name
+        }
+    }
+`
