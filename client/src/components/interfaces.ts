@@ -29,3 +29,4 @@ export interface IRoom {
     player1WordsTyped?: number
     player2WordsTyped?: number
 }
+

@@ -1,10 +1,12 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import "./App.css";
 import ApolloClient from "apollo-boost";
 import {ApolloProvider} from "react-apollo";
 import Home from "./components/Home/Home";
 import Practice from "./components/Practice/Practice";
 import Room from "./components/Room/Room";
+import Game from "./components/Game/Game";
 import Unsupported from "./components/Unsupported";
 
 const client = new ApolloClient({
@@ -21,13 +23,14 @@ const App = () => {
     <ApolloProvider client={client}>
       <Router>
         <Switch>
-          <Route path={"/practice"} exact>
+          <Route path="/rooms/:id"  component= {Game}/>
+          <Route path="/practice" exact>
             <Practice />
           </Route>
-          <Route path={"/rooms"} exact>
+          <Route path="/rooms" exact>
             <Room />
           </Route>
-          <Route path={"/"} exact>
+          <Route path="/" exact>
             <Home />
           </Route>
         </Switch>
